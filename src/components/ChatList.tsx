@@ -1,17 +1,17 @@
-// ChatList.tsx
-import type { Chat } from "../types"
-import { Link } from "react-router-dom"
-import { X } from "lucide-react"
-import { ZapIcon } from "./UnlimitedUsage"
+import { useEffect } from 'react';
+import type { Chat } from "../types";
+import { Link } from "react-router-dom";
+import { PlusIcon, X } from "lucide-react";
+import { ZapIcon } from "./UnlimitedUsage";
 
 interface ChatListProps {
-  chats: Chat[]
-  activeChat: Chat | null
-  onSelectChat: (chat: Chat) => void
-  onNewChat: () => void
-  onDeleteChat: (chat: Chat) => void
-  isSidebarOpen: boolean
-  onToggleSidebar: () => void
+  chats: Chat[];
+  activeChat: Chat | null;
+  onSelectChat: (chat: Chat) => void;
+  onNewChat: () => void;
+  onDeleteChat: (chat: Chat) => void;
+  isSidebarOpen: boolean;
+  onToggleSidebar: () => void;
 }
 
 export default function ChatList({ 
@@ -23,6 +23,29 @@ export default function ChatList({
   isSidebarOpen,
   onToggleSidebar
 }: ChatListProps) {
+  
+  useEffect(() => {
+    const controller = new AbortController();
+    const signal = controller.signal;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // Check if Ctrl + K is pressed
+      if (event.ctrlKey && event.key === 'k') {
+        event.preventDefault(); // Prevent default behavior
+        onNewChat(); // Call the function to open a new chat
+      }
+    };
+
+    // Add event listener for keydown
+    window.addEventListener('keydown', handleKeyDown, { signal });
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      controller.abort(); // Abort any ongoing operations
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [onNewChat]); // Dependency array includes onNewChat
+
   return (
     <>
       {/* Mobile overlay */}
@@ -42,32 +65,34 @@ export default function ChatList({
         flex flex-col
       `}>
         {/* Header */}
-        <div className="p-4 flex justify-between items-center border-b border-neutral-700">
-          <div className="flex items-center gap-3">
-            <div className="bg-emerald-500/10 p-2 rounded-lg">
-              <ZapIcon className="w-5 h-5 text-emerald-400" />
+        <div className="flex justify-between items-center w-full flex-col">
+          <div className="p-4 flex justify-between items-center border-b border-neutral-700 w-full">
+            <div className="flex items-center gap-3">
+              <div className="bg-emerald-500/10 p-2 rounded-lg">
+                <ZapIcon className="w-5 h-5 text-emerald-400" />
+              </div>
+              <div>
+                <h3 className="font-semibold text-lg">chatjj</h3>
+                <p className="text-xs text-zinc-400">For Everyone</p>
+              </div>
             </div>
-            <div>
-              <h3 className="font-semibold text-lg">chatjj</h3>
-              <p className="text-xs text-zinc-400">For Everyone</p>
-            </div>
+            <button 
+              onClick={onToggleSidebar}
+              className="lg:hidden p-2 hover:bg-neutral-800 rounded-lg"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
-          <button 
-            onClick={onToggleSidebar}
-            className="lg:hidden p-2 hover:bg-neutral-800 rounded-lg"
+          {/* New Chat Button */}
+          <button
+            onClick={onNewChat}
+            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2 m-4 py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
+              rounded-lg transition-colors text-center"
           >
-            <X className="w-5 h-5" />
+            New Chat
+            <PlusIcon className="w-5 h-5" />
           </button>
         </div>
-
-        {/* New Chat Button */}
-        <button
-          onClick={onNewChat}
-          className="m-4 py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
-            rounded-lg transition-colors text-center"
-        >
-          New Chat
-        </button>
 
         {/* Chat List */}
         <div className="flex-1 overflow-y-auto">
@@ -80,9 +105,9 @@ export default function ChatList({
                     activeChat?.id === chat.id ? "bg-neutral-700" : "hover:bg-neutral-700"
                   } transition-colors truncate`}
                   onClick={() => {
-                    onSelectChat(chat)
+                    onSelectChat(chat);
                     if (window.innerWidth < 1024) {
-                      onToggleSidebar()
+                      onToggleSidebar();
                     }
                   }}
                 >
@@ -90,9 +115,9 @@ export default function ChatList({
                 </Link>
                 <button
                   onClick={(e) => {
-                    e.preventDefault()
-                    e.stopPropagation()
-                    onDeleteChat(chat)
+                    e.preventDefault();
+                    e.stopPropagation();
+                    onDeleteChat(chat);
                   }}
                   className="p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
                     opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-opacity
@@ -107,5 +132,5 @@ export default function ChatList({
         </div>
       </div>
     </>
-  )
+  );
 }

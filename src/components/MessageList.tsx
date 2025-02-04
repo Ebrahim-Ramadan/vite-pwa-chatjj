@@ -63,7 +63,6 @@ function MessageList({ messages }: MessageListProps) {
     content.replace(codeBlockRegex, (match, language, code, offset) => {
       if (offset > lastIndex) {
         parts.push(content.slice(lastIndex, offset));
-      console.log('SyntaxHighlighter', code.trim());
 
       }
       
@@ -98,7 +97,6 @@ function MessageList({ messages }: MessageListProps) {
 
     if (lastIndex < content.length) {
       parts.push(content.slice(lastIndex));
-      console.log('not SyntaxHighlighter', content.trim());
 
     }
 
@@ -108,7 +106,7 @@ function MessageList({ messages }: MessageListProps) {
   return (
     <div className="relative flex-1 overflow-y-auto p-4 mt-4 space-y-4" ref={containerRef}>
       {messages.length === 0 && (
-        <div className="p-4 flex justify-center w-full flex-col items-center mt-36">
+        <div className="p-2 md:p-4 flex justify-center w-full flex-col items-center mt-36">
          <Suspense fallback={<div>Loading...</div>}>
             <UnlimitedMessages />
           </Suspense>

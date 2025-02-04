@@ -1,9 +1,9 @@
 
 export default function UnlimitedMessages() {
   return (
-    <div className="max-w-md p-6 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 text-zinc-100 rounded-xl border border-zinc-800 shadow-xl hover:shadow-emerald-500/10 transition-shadow duration-500">
+    <div className="max-w-md p-3 md:p-6 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 text-zinc-100 rounded-xl border border-zinc-800 shadow-xl hover:shadow-emerald-500/10 transition-shadow duration-500">
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex md:items-center md:justify-between space-y-2 flex-col md:flex-row w-full">
           <div className="flex items-center gap-3">
             <div
               className="bg-emerald-500/10 p-2 rounded-lg"
@@ -15,7 +15,7 @@ export default function UnlimitedMessages() {
               <p className="text-xs text-zinc-400">For Everyone</p>
             </div>
           </div>
-          <div className="flex items-center gap-1 bg-emerald-500/10 px-3 py-1 rounded-full">
+          <div className="flex items-center gap-1 bg-emerald-500/10 px-3 py-1 rounded-full w-fit flex-end">
             <InfinityIcon className="w-4 h-4 text-emerald-400" />
             <span className="text-sm font-medium text-emerald-400">Unlimited</span>
           </div>

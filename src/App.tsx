@@ -4,7 +4,7 @@ import ChatList from "./components/ChatList"
 import ChatWindow from "./components/ChatWindow"
 import { ConfirmDialog } from "./components/ConfirmDialog"
 import type { Chat } from "./types"
-import { getAllChats, createChat, getChatById, deleteChat } from "./utils/db"
+import { getAllChats, createChat, getChatById, deleteChat, getMessages } from "./utils/db"
 import { Menu } from "lucide-react"
 
 export default function App() {
@@ -44,10 +44,27 @@ export default function App() {
   }
 
   async function handleNewChat() {
+    if (activeChat) {
+      console.log('activeChat', activeChat);
+      
+      const numberofMessages = await getMessages(activeChat.id)
+      console.log("numberofMessages", numberofMessages);
+      
+      if (numberofMessages.length == 0) {
+        navigate(`/chat/${activeChat.id}`)
+        setIsSidebarOpen(false)
+        return
+      };
+    }
+    console.log('creating');
+    
     const newChat = await createChat()
+    
     setChats([newChat, ...chats])
     navigate(`/chat/${newChat.id}`)
     setIsSidebarOpen(false)
+   
+
   }
 
   async function handleDeleteChat(chatToDelete: Chat) {
