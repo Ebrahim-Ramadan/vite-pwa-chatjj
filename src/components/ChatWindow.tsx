@@ -83,7 +83,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
   }
 
   return (
-    <div className="flex-1 flex flex-col bg-neutral-800">
+    <div className="flex-1 flex flex-col bg-neutral-800 w-full">
       <MessageList messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} isDisabled={isStreaming} />
     </div>

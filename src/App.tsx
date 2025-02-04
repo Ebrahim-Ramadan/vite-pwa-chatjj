@@ -5,11 +5,14 @@ import ChatWindow from "./components/ChatWindow"
 import { ConfirmDialog } from "./components/ConfirmDialog"
 import type { Chat } from "./types"
 import { getAllChats, createChat, getChatById, deleteChat } from "./utils/db"
+import { Menu } from "lucide-react"
 
 export default function App() {
   const [chats, setChats] = useState<Chat[]>([])
   const [activeChat, setActiveChat] = useState<Chat | null>(null)
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null)
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+
   const navigate = useNavigate()
   const { chatId } = useParams<{ chatId: string }>()
   const location = useLocation()
@@ -74,14 +77,22 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-neutral-900 text-neutral-100">
-      
+    <div className="flex h-screen bg-neutral-900 text-neutral-100 w-full">
+       {/* Mobile menu button */}
+       <button
+        onClick={() => setIsSidebarOpen(true)}
+        className="lg:hidden fixed left-4 top-4 z-50 bg-neutral-800 p-2 rounded-full"
+      >
+        <Menu className="w-5 h-5" />
+      </button>
       <ChatList
         chats={chats}
         activeChat={activeChat}
         onSelectChat={(chat) => navigate(`/chat/${chat.id}`)}
         onNewChat={handleNewChat}
         onDeleteChat={handleDeleteChat}
+        isSidebarOpen={isSidebarOpen}
+        onToggleSidebar={() => setIsSidebarOpen(false)}
       />
       <ChatWindow chat={activeChat} ensureActiveChat={ensureActiveChat} />
       <ConfirmDialog
