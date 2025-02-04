@@ -58,22 +58,22 @@ export default function ChatList({
 
       {/* Sidebar */}
       <div className={`
-        fixed lg:static inset-y-0 left-0 z-50
+        fixed lg:static inset-y-0 left-0 z-50 px-2
         transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 transition-transform duration-300 ease-in-out
-        w-64 bg-zinc-900 border-r border-neutral-700
-        flex flex-col
+        w-64 bg-neutral-900 border-r border-neutral-700
+        flex flex-col gap-2
       `}>
         {/* Header */}
-        <div className="flex justify-between items-center w-full flex-col">
-          <div className="p-4 flex justify-between items-center border-b border-neutral-700 w-full">
+        <div className="p-4 gap-4 flex justify-between items-center w-full flex-col border-b border-neutral-700">
+          <div className=" flex justify-between items-center  w-full">
             <div className="flex items-center gap-3">
               <div className="bg-emerald-500/10 p-2 rounded-lg">
                 <ZapIcon className="w-5 h-5 text-emerald-400" />
               </div>
               <div>
                 <h3 className="font-semibold text-lg">chatjj</h3>
-                <p className="text-xs text-zinc-400">For Everyone</p>
+                <p className="text-xs text-neutral-400">For Everyone</p>
               </div>
             </div>
             <button 
@@ -86,7 +86,7 @@ export default function ChatList({
           {/* New Chat Button */}
           <button
             onClick={onNewChat}
-            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2 m-4 py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
+            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2  py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
               rounded-lg transition-colors text-center"
           >
             New Chat
@@ -98,11 +98,11 @@ export default function ChatList({
         <div className="flex-1 overflow-y-auto">
           <ul className="space-y-1">
             {chats.map((chat) => (
-              <li key={chat.id} className="relative group">
+              <li key={chat.id} className="relative group ">
                 <Link
                   to={`/chat/${chat.id}`}
-                  className={`block py-2 px-4 pr-10 ${
-                    activeChat?.id === chat.id ? "bg-neutral-700" : "hover:bg-neutral-700"
+                  className={`block py-2 px-4 rounded-lg pr-10 ${
+                    activeChat?.id === chat.id ? "bg-neutral-700" : "hover:bg-neutral-800"
                   } transition-colors truncate`}
                   onClick={() => {
                     onSelectChat(chat);

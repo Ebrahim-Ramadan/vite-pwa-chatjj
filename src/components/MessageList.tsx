@@ -119,7 +119,7 @@ function MessageList({ messages }: MessageListProps) {
         >
           <div
             className={` p-2 rounded-lg ${
-              message.role === "user" ? "bg-zinc-950" : "max-w-[80%] bg-zinc-900"
+              message.role === "user" ? "bg-neutral-950" : "max-w-[80%] bg-neutral-900"
             }`}
           >
             {formatMessage(message.content)}
@@ -131,7 +131,7 @@ function MessageList({ messages }: MessageListProps) {
       {showScrollButton && (
         <button
           onClick={scrollToLatest}
-          className="absolute sticky bottom-0 left-1/2 -translate-x-1/2 p-2 bg-zinc-900 text-white rounded-full shadow-lg transition-opacity hover:bg-zinc-600"
+          className="absolute sticky bottom-0 left-1/2 -translate-x-1/2 p-2 bg-neutral-900 text-white rounded-full shadow-lg transition-opacity hover:bg-neutral-600"
         >
           <ArrowDown className="w-4 h-4" />
         </button>

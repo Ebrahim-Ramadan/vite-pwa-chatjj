@@ -1,7 +1,7 @@
 
 export default function UnlimitedMessages() {
   return (
-    <div className="max-w-md p-3 md:p-6 bg-gradient-to-br from-zinc-900 via-zinc-900 to-zinc-800 text-zinc-100 rounded-xl border border-zinc-800 shadow-xl hover:shadow-emerald-500/10 transition-shadow duration-500">
+    <div className="max-w-md p-3 md:p-6 bg-gradient-to-br from-neutral-900 via-neutral-900 to-neutral-800 text-neutral-100 rounded-xl border border-neutral-800 shadow-xl hover:shadow-emerald-500/10 transition-shadow duration-500">
       <div className="space-y-4">
         <div className="flex md:items-center md:justify-between space-y-2 flex-col md:flex-row w-full">
           <div className="flex items-center gap-3">
@@ -12,7 +12,7 @@ export default function UnlimitedMessages() {
             </div>
             <div>
               <h3 className="font-semibold text-lg">chatjj</h3>
-              <p className="text-xs text-zinc-400">For Everyone</p>
+              <p className="text-xs text-neutral-400">For Everyone</p>
             </div>
           </div>
           <div className="flex items-center gap-1 bg-emerald-500/10 px-3 py-1 rounded-full w-fit flex-end">
@@ -23,22 +23,22 @@ export default function UnlimitedMessages() {
 
         {/* <Progress
           value={100}
-          className="h-2.5 bg-zinc-800"
+          className="h-2.5 bg-neutral-800"
           indicatorClassName="bg-gradient-to-r from-emerald-400 via-emerald-500 to-teal-500"
         /> */}
 
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
-            <span className="text-zinc-400">Status</span>
+            <span className="text-neutral-400">Status</span>
             <span className="text-emerald-400 font-medium">Always Available</span>
           </div>
 
           <div className="flex gap-2 text-xs">
-            <div className="flex items-center gap-1 text-zinc-400">
+            <div className="flex items-center gap-1 text-neutral-400">
               <CloudIcon className="w-3 h-3" />
               <span>No Cloud Required</span>
             </div>
-            <div className="flex items-center gap-1 text-zinc-400">
+            <div className="flex items-center gap-1 text-neutral-400">
               <LockIcon className="w-3 h-3" />
               <span>100% Private</span>
             </div>
@@ -46,12 +46,12 @@ export default function UnlimitedMessages() {
         </div>
 
         <div className="pt-2">
-          <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium">
+          <div className="text-[10px] uppercase tracking-wider text-neutral-500 font-medium">
             AWESOME FEATURES UNLOCKED
           </div>
           <div className="flex flex-wrap gap-2 mt-2">
             {["No Limits", "Offline Mode", "Custom Models", "Zero Latency"].map((feature) => (
-              <span key={feature} className="text-xs bg-zinc-800/50 text-zinc-300 px-2 py-1 rounded-full">
+              <span key={feature} className="text-xs bg-neutral-800/50 text-neutral-300 px-2 py-1 rounded-full">
                 {feature}
               </span>
             ))}

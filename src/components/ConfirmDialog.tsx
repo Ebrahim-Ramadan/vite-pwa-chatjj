@@ -24,10 +24,10 @@ import {
   }: ConfirmDialogProps) {
     return (
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="bg-zinc-900 border-zinc-800">
+        <DialogContent className="bg-neutral-900 border-neutral-800">
           <DialogHeader>
             <DialogTitle className="text-red-500 font-bold">{title}</DialogTitle>
-            <DialogDescription className="text-zinc-400">
+            <DialogDescription className="text-neutral-400">
               {description}
             </DialogDescription>
           </DialogHeader>
@@ -44,7 +44,7 @@ import {
             tabIndex={1} 
               variant="outline" 
               onClick={onClose} 
-              className="text-zinc-300 hover:bg-zinc-800"
+              className="text-neutral-300 hover:bg-neutral-800"
             >
               Cancel
             </Button>
