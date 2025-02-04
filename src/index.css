@@ -1,27 +1,19 @@
 @import "tailwindcss";
+:root {
+  --background: #ffffff;
+  --foreground: #18181B;
+}
 body {
+  color: var(--foreground);
+  background: var(--background);
   @apply bg-neutral-900 text-neutral-100;
 }
 
-/* Custom scrollbar styles */
-::-webkit-scrollbar {
-  width: 8px;
+
+
+button, a {
+  cursor: pointer;
 }
-
-::-webkit-scrollbar-track {
-  background: #262626; /* neutral-800 */
-}
-
-::-webkit-scrollbar-thumb {
-  background: #404040; /* neutral-700 */
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #525252; /* neutral-600 */
-}
-
-
 
 :root {
   scroll-padding: 0;

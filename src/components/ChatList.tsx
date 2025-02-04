@@ -38,7 +38,7 @@ export default function ChatList({
         fixed lg:static inset-y-0 left-0 z-50
         transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
         lg:translate-x-0 transition-transform duration-300 ease-in-out
-        w-64 bg-neutral-800 border-r border-neutral-700
+        w-64 bg-zinc-900 border-r border-neutral-700
         flex flex-col
       `}>
         {/* Header */}
@@ -94,12 +94,12 @@ export default function ChatList({
                     e.stopPropagation()
                     onDeleteChat(chat)
                   }}
-                  className="p-2 absolute right-2 top-1/2 transform -translate-y-1/2 
-                    opacity-0 group-hover:opacity-100 transition-opacity
-                    text-neutral-400 hover:text-red-500"
+                  className="p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
+                    opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-opacity
+                    text-red-500"
                   title="Delete chat"
                 >
-                  <Trash2 className="w-4 h-4" />
+                  <X className="w-4 h-4" />
                 </button>
               </li>
             ))}
