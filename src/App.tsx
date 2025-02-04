@@ -75,6 +75,7 @@ export default function App() {
 
   return (
     <div className="flex h-screen bg-neutral-900 text-neutral-100">
+      
       <ChatList
         chats={chats}
         activeChat={activeChat}
