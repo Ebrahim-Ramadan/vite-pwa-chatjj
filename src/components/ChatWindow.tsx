@@ -92,7 +92,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
   }
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col max-w-3xl mx-auto">
       {error && <FallBack message={error}/>}
       <MessageList messages={messages} />
       <MessageInput 

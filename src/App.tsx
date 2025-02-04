@@ -56,10 +56,7 @@ export default function App() {
         return
       };
     }
-    console.log('creating');
-    
     const newChat = await createChat()
-    
     setChats([newChat, ...chats])
     navigate(`/chat/${newChat.id}`)
     setIsSidebarOpen(false)

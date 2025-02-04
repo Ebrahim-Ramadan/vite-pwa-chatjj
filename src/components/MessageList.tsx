@@ -115,11 +115,11 @@ function MessageList({ messages }: MessageListProps) {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
+          className={`flex ${message.role === "user" ? "justify-end " : "justify-start"}`}
         >
           <div
-            className={` p-2 rounded-lg ${
-              message.role === "user" ? "bg-neutral-950" : "max-w-[80%] bg-neutral-900"
+            className={` p-2 rounded-lg max-w-[80%] ${
+              message.role === "user" ? "bg-neutral-950" : " bg-neutral-900"
             }`}
           >
             {formatMessage(message.content)}

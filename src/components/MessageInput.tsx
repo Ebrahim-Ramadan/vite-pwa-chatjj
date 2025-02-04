@@ -25,7 +25,7 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
     setInput(e.target.value);
     if (textareaRef.current) {
       textareaRef.current.style.height = "auto"; // Reset height
-      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 200) + "px"; // Limit to 200px
+      textareaRef.current.style.height = Math.min(textareaRef.current.scrollHeight, 260) + "px"; // Limit to 200px
     }
   }
 
@@ -37,7 +37,8 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700">
+    <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700 relative">
+      
       <div className="flex bg-neutral-700 rounded-xl">
         <textarea
         autoFocus
@@ -46,7 +47,7 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
           onChange={handleInput}
           onKeyDown={handleKeyDown}
           rows={1}
-          className="flex-1 text-white px-4 py-2 outline-none disabled:opacity-50 resize-none overflow-y-auto max-h-[200px]"
+          className="flex-1 text-white px-4 py-2 outline-none disabled:opacity-50 resize-none overflow-y-auto max-h-[260px]"
           placeholder="Message Me"
           style={{ minHeight: "40px" }} // Ensures a comfortable default height
         />
