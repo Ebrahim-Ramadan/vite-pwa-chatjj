@@ -1,35 +1,69 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react"
+import { useNavigate, useParams } from "react-router-dom"
+import ChatList from "./components/ChatList"
+import ChatWindow from "./components/ChatWindow"
+import type { Chat } from "./types"
+import { getAllChats, createChat, getChatById } from "./utils/db"
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [chats, setChats] = useState<Chat[]>([])
+  const [activeChat, setActiveChat] = useState<Chat | null>(null)
+  const navigate = useNavigate()
+  const { chatId } = useParams<{ chatId: string }>()
+
+  useEffect(() => {
+    loadChats()
+  }, [])
+
+  useEffect(() => {
+    if (chatId) {
+      loadChat(chatId)
+    } else {
+      setActiveChat(null)
+    }
+  }, [chatId])
+
+  async function loadChats() {
+    const loadedChats = await getAllChats()
+    setChats(loadedChats)
+  }
+
+  async function loadChat(id: string) {
+    const chat = await getChatById(id)
+    if (chat) {
+      setActiveChat(chat)
+    } else {
+      navigate("/")
+    }
+  }
+
+  async function handleNewChat() {
+    const newChat = await createChat()
+    setChats([newChat, ...chats])
+    navigate(`/chat/${newChat.id}`)
+  }
+
+  async function ensureActiveChat() {
+    if (!activeChat) {
+      const newChat = await createChat()
+      setChats([newChat, ...chats])
+      setActiveChat(newChat)
+      navigate(`/chat/${newChat.id}`)
+      return newChat
+    }
+    return activeChat
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="flex h-screen bg-gray-100">
+      <ChatList
+        chats={chats}
+        activeChat={activeChat}
+        onSelectChat={(chat) => navigate(`/chat/${chat.id}`)}
+        onNewChat={handleNewChat}
+      />
+      <ChatWindow chat={activeChat} ensureActiveChat={ensureActiveChat} />
+    </div>
   )
 }
 
-export default App
