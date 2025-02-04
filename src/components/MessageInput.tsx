@@ -40,6 +40,7 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
     <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700">
       <div className="flex bg-neutral-700 rounded-xl">
         <textarea
+        autoFocus
           ref={textareaRef}
           value={input}
           onChange={handleInput}

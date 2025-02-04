@@ -47,6 +47,7 @@ export default function App() {
     const newChat = await createChat()
     setChats([newChat, ...chats])
     navigate(`/chat/${newChat.id}`)
+    setIsSidebarOpen(false)
   }
 
   async function handleDeleteChat(chatToDelete: Chat) {
@@ -94,6 +95,7 @@ export default function App() {
         isSidebarOpen={isSidebarOpen}
         onToggleSidebar={() => setIsSidebarOpen(false)}
       />
+      
       <ChatWindow chat={activeChat} ensureActiveChat={ensureActiveChat} />
       <ConfirmDialog
         isOpen={!!chatToDelete}

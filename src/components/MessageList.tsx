@@ -63,7 +63,10 @@ function MessageList({ messages }: MessageListProps) {
     content.replace(codeBlockRegex, (match, language, code, offset) => {
       if (offset > lastIndex) {
         parts.push(content.slice(lastIndex, offset));
+      console.log('SyntaxHighlighter', code.trim());
+
       }
+      
       parts.push(
         <SyntaxHighlighter language={language || "text"} style={atomOneDark} key={offset}>
           {code.trim()}
@@ -75,13 +78,15 @@ function MessageList({ messages }: MessageListProps) {
 
     if (lastIndex < content.length) {
       parts.push(content.slice(lastIndex));
+      console.log('not SyntaxHighlighter', content.trim());
+
     }
 
     return parts;
   }
 
   return (
-    <div className="relative flex-1 overflow-y-auto p-4 space-y-4" ref={containerRef}>
+    <div className="relative flex-1 overflow-y-auto p-4 mt-4 space-y-4" ref={containerRef}>
       {messages.length === 0 && (
         <div className="p-4 flex justify-center w-full flex-col items-center mt-36">
          <Suspense fallback={<div>Loading...</div>}>
@@ -95,8 +100,8 @@ function MessageList({ messages }: MessageListProps) {
           className={`flex ${message.role === "user" ? "justify-end" : "justify-start"}`}
         >
           <div
-            className={`max-w-[80%] p-2 rounded-lg ${
-              message.role === "user" ? "bg-zinc-950" : "bg-zinc-900"
+            className={` p-2 rounded-lg ${
+              message.role === "user" ? "bg-zinc-950" : "max-w-[80%] bg-zinc-900"
             }`}
           >
             {formatMessage(message.content)}
