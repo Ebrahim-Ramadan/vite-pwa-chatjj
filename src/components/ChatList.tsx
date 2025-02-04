@@ -1,5 +1,5 @@
-import type { Chat } from "../types"
-import { Link } from "react-router-dom"
+import { Chat } from '../types'
+import { Link } from 'react-router-dom'
 
 interface ChatListProps {
   chats: Chat[]
@@ -10,8 +10,11 @@ interface ChatListProps {
 
 export default function ChatList({ chats, activeChat, onSelectChat, onNewChat }: ChatListProps) {
   return (
-    <div className="w-64 bg-white border-r">
-      <button className="w-full py-2 px-4 bg-blue-500 text-white font-semibold" onClick={onNewChat}>
+    <div className="w-64 bg-gray-800 border-r border-gray-700">
+      <button
+        className="w-full py-2 px-4 bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+        onClick={onNewChat}
+      >
         New Chat
       </button>
       <ul>
@@ -19,10 +22,12 @@ export default function ChatList({ chats, activeChat, onSelectChat, onNewChat }:
           <li key={chat.id}>
             <Link
               to={`/chat/${chat.id}`}
-              className={`block py-2 px-4 ${activeChat?.id === chat.id ? "bg-gray-200" : "hover:bg-gray-100"}`}
+              className={`block py-2 px-4 ${
+                activeChat?.id === chat.id ? 'bg-gray-700' : 'hover:bg-gray-700'
+              } transition-colors`}
               onClick={() => onSelectChat(chat)}
             >
-              {chat.title || "Untitled Chat"}
+              {chat.title || 'Untitled Chat'}
             </Link>
           </li>
         ))}
@@ -30,4 +35,3 @@ export default function ChatList({ chats, activeChat, onSelectChat, onNewChat }:
     </div>
   )
 }
-

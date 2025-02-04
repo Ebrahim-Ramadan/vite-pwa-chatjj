@@ -55,7 +55,7 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-100">
+    <div className="flex h-screen bg-gray-900 text-gray-100">
       <ChatList
         chats={chats}
         activeChat={activeChat}

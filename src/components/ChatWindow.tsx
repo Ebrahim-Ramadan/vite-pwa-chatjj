@@ -1,9 +1,9 @@
-import { useState, useEffect } from "react"
-import type { Chat, Message } from "../types"
-import { getMessages, addMessage } from "../utils/db"
-import MessageList from "./MessageList"
-import MessageInput from "./MessageInput"
-import { simulateStream } from "../utils/stream"
+import { useState, useEffect } from 'react'
+import { Chat, Message } from '../types'
+import { getMessages, addMessage } from '../utils/db'
+import MessageList from './MessageList'
+import MessageInput from './MessageInput'
+import { simulateStream } from '../utils/stream'
 
 interface ChatWindowProps {
   chat: Chat | null
@@ -32,7 +32,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
     const newMessage: Message = {
       id: Date.now().toString(),
       chatId: activeChat.id,
-      role: "user",
+      role: 'user',
       content,
       timestamp: new Date(),
     }
@@ -44,8 +44,8 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
     const aiMessage: Message = {
       id: (Date.now() + 1).toString(),
       chatId: activeChat.id,
-      role: "assistant",
-      content: "",
+      role: 'assistant',
+      content: '',
       timestamp: new Date(),
     }
 
@@ -54,7 +54,11 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
     // Simulate streaming
     await simulateStream(aiMessage.id, (chunk) => {
       setMessages((prevMessages) =>
-        prevMessages.map((msg) => (msg.id === aiMessage.id ? { ...msg, content: msg.content + chunk } : msg)),
+        prevMessages.map((msg) =>
+          msg.id === aiMessage.id
+            ? { ...msg, content: msg.content + chunk }
+            : msg
+        )
       )
     })
 
@@ -63,19 +67,10 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
     await addMessage(aiMessage)
   }
 
-  if (!chat) {
-    return (
-      <div className="flex-1 flex items-center justify-center">
-        <p className="text-gray-500">Select a chat or start a new one</p>
-      </div>
-    )
-  }
-
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col bg-gray-800">
       <MessageList messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} />
     </div>
   )
 }
-
