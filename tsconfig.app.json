@@ -1,5 +1,7 @@
 {
   "compilerOptions": {
+    "skipLibCheck": true,
+    "noEmitOnError": false,
     "baseUrl": ".",
     "paths": {
       "@/*": [
@@ -11,7 +13,6 @@
     "useDefineForClassFields": true,
     "lib": ["ES2020", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "skipLibCheck": true,
 
     /* Bundler mode */
     "moduleResolution": "node",
