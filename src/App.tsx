@@ -1,15 +1,18 @@
 import { useState, useEffect } from "react"
-import { useNavigate, useParams } from "react-router-dom"
+import { useNavigate, useParams, useLocation } from "react-router-dom"
 import ChatList from "./components/ChatList"
 import ChatWindow from "./components/ChatWindow"
+import { ConfirmDialog } from "./components/ConfirmDialog"
 import type { Chat } from "./types"
-import { getAllChats, createChat, getChatById } from "./utils/db"
+import { getAllChats, createChat, getChatById, deleteChat } from "./utils/db"
 
 export default function App() {
   const [chats, setChats] = useState<Chat[]>([])
   const [activeChat, setActiveChat] = useState<Chat | null>(null)
+  const [chatToDelete, setChatToDelete] = useState<Chat | null>(null)
   const navigate = useNavigate()
   const { chatId } = useParams<{ chatId: string }>()
+  const location = useLocation()
 
   useEffect(() => {
     loadChats()
@@ -18,10 +21,10 @@ export default function App() {
   useEffect(() => {
     if (chatId) {
       loadChat(chatId)
-    } else {
+    } else if (location.pathname === "/") {
       setActiveChat(null)
     }
-  }, [chatId])
+  }, [chatId, location.pathname])
 
   async function loadChats() {
     const loadedChats = await getAllChats()
@@ -43,6 +46,22 @@ export default function App() {
     navigate(`/chat/${newChat.id}`)
   }
 
+  async function handleDeleteChat(chatToDelete: Chat) {
+    setChatToDelete(chatToDelete)
+  }
+
+  async function confirmDeleteChat() {
+    if (chatToDelete) {
+      await deleteChat(chatToDelete.id)
+      setChats(chats.filter((chat) => chat.id !== chatToDelete.id))
+      if (activeChat && activeChat.id === chatToDelete.id) {
+        setActiveChat(null)
+        navigate("/")
+      }
+      setChatToDelete(null)
+    }
+  }
+
   async function ensureActiveChat() {
     if (!activeChat) {
       const newChat = await createChat()
@@ -55,14 +74,22 @@ export default function App() {
   }
 
   return (
-    <div className="flex h-screen bg-gray-900 text-gray-100">
+    <div className="flex h-screen bg-neutral-900 text-neutral-100">
       <ChatList
         chats={chats}
         activeChat={activeChat}
         onSelectChat={(chat) => navigate(`/chat/${chat.id}`)}
         onNewChat={handleNewChat}
+        onDeleteChat={handleDeleteChat}
       />
       <ChatWindow chat={activeChat} ensureActiveChat={ensureActiveChat} />
+      <ConfirmDialog
+        isOpen={!!chatToDelete}
+        onClose={() => setChatToDelete(null)}
+        onConfirm={confirmDeleteChat}
+        title="Delete Chat"
+        description="Are you sure you want to delete this chat? This action cannot be undone."
+      />
     </div>
   )
 }

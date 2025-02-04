@@ -42,6 +42,23 @@ export async function createChat(): Promise<Chat> {
   return newChat
 }
 
+export async function deleteChat(id: string): Promise<void> {
+  const db = await dbPromise
+  await db.delete("chats", id)
+
+  // Delete all messages associated with this chat
+  const tx = db.transaction("messages", "readwrite")
+  const index = tx.store.index("by-chat")
+  let cursor = await index.openCursor(id)
+
+  while (cursor) {
+    cursor.delete()
+    cursor = await cursor.continue()
+  }
+
+  await tx.done
+}
+
 export async function getMessages(chatId: string): Promise<Message[]> {
   const db = await dbPromise
   const index = db.transaction("messages").store.index("by-chat")

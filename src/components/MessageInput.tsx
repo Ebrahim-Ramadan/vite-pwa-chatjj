@@ -16,13 +16,13 @@ export default function MessageInput({ onSendMessage }: MessageInputProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-t border-gray-700">
+    <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700">
       <div className="flex">
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 bg-gray-700 text-white border border-gray-600 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="flex-1 bg-neutral-700 text-white border border-neutral-600 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           placeholder="Type your message..."
         />
         <button

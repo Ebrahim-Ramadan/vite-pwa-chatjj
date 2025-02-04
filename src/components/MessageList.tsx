@@ -36,7 +36,7 @@ export default function MessageList({ messages }: MessageListProps) {
     <div className="flex-1 overflow-y-auto p-4 space-y-4">
       {messages.map((message) => (
         <div key={message.id} className={`${message.role === "user" ? "text-right" : "text-left"}`}>
-          <div className={`inline-block p-2 rounded-lg ${message.role === "user" ? "bg-blue-600" : "bg-gray-700"}`}>
+          <div className={`inline-block p-2 rounded-lg ${message.role === "user" ? "bg-blue-600" : "bg-neutral-700"}`}>
             {formatMessage(message.content)}
           </div>
         </div>
