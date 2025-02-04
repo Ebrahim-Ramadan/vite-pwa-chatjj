@@ -2,14 +2,15 @@ import { useState, type React } from "react"
 
 interface MessageInputProps {
   onSendMessage: (content: string) => void
+  isDisabled?: boolean
 }
 
-export default function MessageInput({ onSendMessage }: MessageInputProps) {
+export default function MessageInput({ onSendMessage, isDisabled }: MessageInputProps) {
   const [input, setInput] = useState("")
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
-    if (input.trim()) {
+    if (input.trim() && !isDisabled) {
       onSendMessage(input.trim())
       setInput("")
     }
@@ -22,12 +23,14 @@ export default function MessageInput({ onSendMessage }: MessageInputProps) {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="flex-1 bg-neutral-700 text-white border border-neutral-600 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          placeholder="Type your message..."
+          className="flex-1 bg-neutral-700 text-white border border-neutral-600 rounded-l-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50"
+          placeholder={isDisabled ? "Please wait..." : "Type your message..."}
+          disabled={isDisabled}
         />
         <button
           type="submit"
-          className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+          disabled={isDisabled}
+          className="bg-blue-600 text-white px-4 py-2 rounded-r-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors disabled:opacity-50 disabled:hover:bg-blue-600"
         >
           Send
         </button>

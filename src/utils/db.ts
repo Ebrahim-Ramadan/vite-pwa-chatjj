@@ -70,3 +70,8 @@ export async function addMessage(message: Message): Promise<void> {
   await db.add("messages", message)
 }
 
+export async function updateMessage(message: Message): Promise<void> {
+  const db = await dbPromise
+  await db.put("messages", message)
+}
+
