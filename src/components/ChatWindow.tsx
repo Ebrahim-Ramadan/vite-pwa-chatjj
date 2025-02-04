@@ -15,7 +15,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
   const [messages, setMessages] = useState<Message[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [error, setError] = useState<string>("")
-  const [isPending, startTransition] = useTransition()
+  const [ startTransition] = useTransition()
   const messagesRef = useRef<Message[]>([])
 
   useEffect(() => {

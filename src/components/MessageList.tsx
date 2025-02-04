@@ -68,7 +68,27 @@ function MessageList({ messages }: MessageListProps) {
       }
       
       parts.push(
-        <SyntaxHighlighter language={language || "text"} style={atomOneDark} key={offset}>
+        <SyntaxHighlighter language={language || "text"} style={atomOneDark} key={offset}
+        customStyle={{
+          color: "rgb(212, 212, 212)",
+          fontSize: "15px",
+          textShadow: "none",
+          fontFamily: `Menlo, Monaco, Consolas, "Andale Mono", "Ubuntu Mono", "Courier New", monospace`,
+          direction: "ltr",
+          textAlign: "left",
+          whiteSpace: "pre-wrap", // Prevents overflow issues
+          wordSpacing: "normal",
+          wordBreak: "break-word", // Ensures long words wrap properly
+          lineHeight: "1.5",
+          tabSize: 4,
+          hyphens: "none",
+          padding: "1em",
+          margin: "0.5em 0",
+          overflow: "auto",
+          background: "rgb(30, 30, 30)",
+          maxWidth: "100%", // Prevents breaking container width
+          borderRadius: "8px", // Adds slight rounding for aesthetics
+        }}>
           {code.trim()}
         </SyntaxHighlighter>
       );
