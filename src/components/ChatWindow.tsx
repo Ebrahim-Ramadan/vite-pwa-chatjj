@@ -1,17 +1,18 @@
 import { useState, useEffect, useRef, useTransition } from "react"
 import type { Chat, Message } from "../types"
-import { getMessages, addMessage, updateMessage } from "../utils/db"
+import { getMessages, addMessage, updateMessage, updateChatName } from "../utils/db"
 import MessageList from "./MessageList"
 import MessageInput from "./MessageInput"
-import { streamChat } from "../utils/stream"
+import { generateChatName, streamChat } from "../utils/stream"
 import { FallBack } from "./ui/FallBack"
 
 interface ChatWindowProps {
   chat: Chat | null
   ensureActiveChat: () => Promise<Chat>
+  updateChatNameProp: (newName: string) => void // Add this prop
 }
 
-export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) {
+export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp }: ChatWindowProps) {
   const [messages, setMessages] = useState<Message[]>([])
   const [isStreaming, setIsStreaming] = useState(false)
   const [error, setError] = useState<string>("")
@@ -65,6 +66,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
         }
         await addMessage(aiMessage)
         setMessages((prev) => [...prev, aiMessage])
+        setIsStreaming(false)
 
         const finalContent = await streamChat(content, (chunk) => {
           setMessages((prev) =>
@@ -74,8 +76,15 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
 
         const updatedMessage = { ...aiMessage, content: finalContent }
         await updateMessage(updatedMessage)
-
         setMessages((prev) => prev.map((msg) => (msg.id === aiMessage.id ? updatedMessage : msg)))
+
+        // Check if the chat has a name before generating a new one
+        if (activeChat.title === "New Chat") {
+          const newNameGenerated = await generateChatName({ chat: content });
+          updateChatNameProp(newNameGenerated);
+          await updateChatName(activeChat.id, newNameGenerated);
+        }
+
       } catch (error) {
         const errorMessage = error instanceof Error 
           ? error.message 

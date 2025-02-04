@@ -86,6 +86,7 @@ export default function ChatList({
           {/* New Chat Button */}
           <button
             onClick={onNewChat}
+            title="New Chat"
             className="flex items-center w-full text-center justify-center font-medium flex-row gap-2  py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
               rounded-lg transition-colors text-center"
           >
@@ -100,8 +101,9 @@ export default function ChatList({
             {chats.map((chat) => (
               <li key={chat.id} className="relative group ">
                 <Link
+                title={chat.title}
                   to={`/chat/${chat.id}`}
-                  className={`block py-2 px-4 rounded-lg pr-10 ${
+                  className={`font-medium block  py-2 px-4 rounded-lg pr-10 ${
                     activeChat?.id === chat.id ? "bg-neutral-700" : "hover:bg-neutral-800"
                   } transition-colors truncate`}
                   onClick={() => {
@@ -111,6 +113,10 @@ export default function ChatList({
                     }
                   }}
                 >
+                  {/* <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg" >
+                  <rect x="10" y="10" width="80" height="60" rx="10" ry="10" fill="#e0e0e0" />
+                  <polygon points="30,70 50,70 40,80" fill="#e0e0e0" />
+                </svg> */}
                   {chat.title || "Untitled Chat"}
                 </Link>
                 <button
@@ -119,8 +125,8 @@ export default function ChatList({
                     e.stopPropagation();
                     onDeleteChat(chat);
                   }}
-                  className="p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
-                    opacity-0 group-hover:opacity-100 group-hover:scale-105 transition-opacity
+                  className="hover:bg-neutral-800 rounded-lg p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-100 
+                    opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-opacity
                     text-red-500"
                   title="Delete chat"
                 >

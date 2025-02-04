@@ -23,8 +23,10 @@ const dbPromise = openDB<MyDB>("ai-chat-app", 1, {
 
 export async function getAllChats(): Promise<Chat[]> {
   const db = await dbPromise
-  return db.getAll("chats")
+  const chats = await db.getAll("chats")
+  return chats.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
 }
+
 
 export async function getChatById(id: string): Promise<Chat | undefined> {
   const db = await dbPromise
@@ -75,3 +77,17 @@ export async function updateMessage(message: Message): Promise<void> {
   await db.put("messages", message)
 }
 
+
+
+export async function updateChatName(id: string, newTitle: string): Promise<void> {
+  const db = await dbPromise;
+  const chat = await db.get("chats", id);
+
+  if (chat) {
+    // Update the chat title
+    chat.title = newTitle;
+    await db.put("chats", chat);
+  } else {
+    throw new Error("Chat not found");
+  }
+}

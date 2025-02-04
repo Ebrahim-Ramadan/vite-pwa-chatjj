@@ -37,9 +37,9 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
   }
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 border-t border-neutral-700 relative">
+    <form onSubmit={handleSubmit} className="p-4  relative">
       
-      <div className="flex bg-neutral-700 rounded-xl">
+      <div className="flex bg-neutral-800 rounded-xl py-2">
         <textarea
         autoFocus
           ref={textareaRef}
@@ -57,7 +57,7 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
           <button
             type="submit"
             disabled={isDisabled || !input.trim()}
-            className="p-2 disabled:text-gray-400 disabled:cursor-not-allowed"
+            className="p-2 disabled:text-neutral-400 disabled:cursor-not-allowed"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

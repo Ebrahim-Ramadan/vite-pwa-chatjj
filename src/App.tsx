@@ -12,7 +12,6 @@ export default function App() {
   const [activeChat, setActiveChat] = useState<Chat | null>(null)
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
-
   const navigate = useNavigate()
   const { chatId } = useParams<{ chatId: string }>()
   const location = useLocation()
@@ -91,6 +90,17 @@ export default function App() {
     return activeChat
   }
 
+  const updateChatName = (newName: string) => {
+    if (activeChat) {
+      // Optionally, you can also update the chat in the chats array
+      setChats((prevChats) =>
+        prevChats.map((chat) =>
+          chat.id === activeChat.id ? { ...chat, title: newName } : chat
+        )
+      )
+      // navigate(0)
+    }
+  }
   return (
     <div className="flex h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-neutral-100 w-full">
        {/* Mobile menu button */}
@@ -110,7 +120,9 @@ export default function App() {
         onToggleSidebar={() => setIsSidebarOpen(false)}
       />
       
-      <ChatWindow chat={activeChat} ensureActiveChat={ensureActiveChat} />
+      <ChatWindow 
+      updateChatNameProp={updateChatName}
+      chat={activeChat} ensureActiveChat={ensureActiveChat} />
       <ConfirmDialog
         isOpen={!!chatToDelete}
         onClose={() => setChatToDelete(null)}
