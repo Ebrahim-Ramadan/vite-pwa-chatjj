@@ -1,6 +1,6 @@
-import { useState, useRef } from "react";
-import LoadingDots from "./ui/LoadingComponent";
-
+import { useState, useRef, lazy } from "react";
+// import LoadingDots from "./ui/LoadingComponent";
+const LoadingDots = lazy(() => import("./ui/LoadingComponent"));
 interface MessageInputProps {
   onSendMessage: (content: string) => void;
   isDisabled?: boolean;

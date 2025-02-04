@@ -1,5 +1,4 @@
 {
-  "jsx": "react-jsxdev",
   "files": [],
   "references": [
     {
@@ -10,7 +9,10 @@
     }
   ],
   "compilerOptions": {
+  "jsx": "react-jsxdev",
+    "noEmit": true,
     "skipLibCheck": true,
+    "types": ["vite/client"],
     "noEmitOnError": false,
     "baseUrl": ".",
     "paths": {

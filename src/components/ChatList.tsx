@@ -1,7 +1,7 @@
 // ChatList.tsx
 import type { Chat } from "../types"
 import { Link } from "react-router-dom"
-import { Trash2,  X } from "lucide-react"
+import { X } from "lucide-react"
 import { ZapIcon } from "./UnlimitedUsage"
 
 interface ChatListProps {

@@ -1,15 +1,19 @@
-import { useEffect, useRef, useState } from "react";
+// @ts-ignore
+import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
 import type { Message } from "../types";
+// @ts-ignore
 import SyntaxHighlighter from "react-syntax-highlighter";
+// @ts-ignore
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import UnlimitedMessages from "./UnlimitedUsage";
 import { ArrowDown } from "lucide-react";
+
+const UnlimitedMessages = lazy(() => import("./UnlimitedUsage"));
 
 interface MessageListProps {
   messages: Message[];
 }
 
-export default function MessageList({ messages }: MessageListProps) {
+function MessageList({ messages }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const latestRef = useRef<HTMLDivElement>(null);
   const [showScrollButton, setShowScrollButton] = useState(false);
@@ -32,12 +36,10 @@ export default function MessageList({ messages }: MessageListProps) {
   
     container.addEventListener("scroll", handleScroll, { passive: true, signal });
   
-    return () => controller.abort(); // Cleanup on unmount
+    return () => controller.abort();
   }, []);
   
-
   useEffect(() => {
-    // Auto-scroll to bottom when a new message arrives (only if user was already at bottom)
     const container = containerRef.current;
     if (!container) return;
 
@@ -82,7 +84,9 @@ export default function MessageList({ messages }: MessageListProps) {
     <div className="relative flex-1 overflow-y-auto p-4 space-y-4" ref={containerRef}>
       {messages.length === 0 && (
         <div className="p-4 flex justify-center w-full flex-col items-center mt-36">
-          <UnlimitedMessages />
+         <Suspense fallback={<div>Loading...</div>}>
+            <UnlimitedMessages />
+          </Suspense>
         </div>
       )}
       {messages.map((message) => (
@@ -99,10 +103,8 @@ export default function MessageList({ messages }: MessageListProps) {
           </div>
         </div>
       ))}
-      {/* Invisible element to track the last message */}
       <div ref={latestRef} className="h-1" />
 
-      {/* Scroll-to-latest button */}
       {showScrollButton && (
         <button
           onClick={scrollToLatest}
@@ -114,3 +116,5 @@ export default function MessageList({ messages }: MessageListProps) {
     </div>
   );
 }
+
+export default React.memo(MessageList);
