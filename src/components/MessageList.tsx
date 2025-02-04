@@ -117,4 +117,4 @@ function MessageList({ messages }: MessageListProps) {
   );
 }
 
-export default React.memo(MessageList);
+export default MessageList;

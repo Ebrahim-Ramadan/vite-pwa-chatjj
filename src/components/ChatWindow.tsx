@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, Suspense } from "react"
+import { useState, useEffect, useRef } from "react"
 import type { Chat, Message } from "../types"
 import { getMessages, addMessage, updateMessage } from "../utils/db"
 import MessageList from "./MessageList"
@@ -84,9 +84,7 @@ export default function ChatWindow({ chat, ensureActiveChat }: ChatWindowProps) 
 
   return (
     <div className="flex-1 flex flex-col ">
-      <Suspense fallback={<div>Loading...</div>}>
-      <MessageList messages={messages} />
-      </Suspense>
+            <MessageList messages={messages} />
       <MessageInput onSendMessage={handleSendMessage} isDisabled={isStreaming} />
     </div>
   )
