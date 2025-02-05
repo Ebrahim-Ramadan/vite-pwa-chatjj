@@ -130,7 +130,7 @@ export default function ChatList({
                     e.stopPropagation();
                     onDeleteChat(chat);
                   }}
-                  className="hover:bg-neutral-800 rounded-lg p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
+                  className="hover:bg-neutral-800 rounded-lg p-2 hover:text-red-500 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
                     opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-opacity
                     "
                   title="Delete chat"
