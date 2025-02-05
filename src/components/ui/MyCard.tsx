@@ -3,7 +3,7 @@ import { GithubIcon, Star } from "lucide-react"
 
 const LittleFounder = () => {
   return (
-    <a className="flex group items-center py-4 px-2 space-x-2 cursor-pointer bg-neutral-900" href="https://github.com/ebrahim-ramadan" target="_blank">
+    <a className="flex group items-center py-4 px-2 space-x-2 cursor-pointer bg-neutral-900" href="https://github.com/Ebrahim-Ramadan/vite-pwa-chatjj" target="_blank">
     <img src='/me.jpg' alt='me' className="w-10 h-10 rounded-full" />
       <div className="flex-grow">
         <h3 className="text-sm font-semibold">Ebrahim Ramadan</h3>

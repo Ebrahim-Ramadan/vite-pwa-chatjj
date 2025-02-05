@@ -88,7 +88,7 @@ export default function ChatList({
           <button
             onClick={onNewChat}
             title="New Chat"
-            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2  py-2 px-4 bg-neutral-700 hover:bg-neutral-600 
+            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2  py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
               rounded-lg transition-colors text-center"
           >
             New Chat
