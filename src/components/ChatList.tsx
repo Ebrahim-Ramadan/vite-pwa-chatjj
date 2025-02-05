@@ -1,10 +1,11 @@
-import { useEffect } from 'react';
+import { lazy, Suspense, useEffect } from 'react';
 import type { Chat } from "../types";
 import { Link } from "react-router-dom";
 import { PlusIcon, X } from "lucide-react";
 import { ZapIcon } from "./UnlimitedUsage";
-import LittleFounder from './ui/MyCard';
-
+import LoadingDots from './ui/LoadingComponent';
+// import LittleFounder from './ui/MyCard';
+const LittleFounder = lazy(()=>import('./ui/MyCard'));
 interface ChatListProps {
   chats: Chat[];
   activeChat: Chat | null;
@@ -86,14 +87,20 @@ export default function ChatList({
           </div>
           {/* New Chat Button */}
           <button
-            onClick={onNewChat}
-            title="New Chat"
-            className="flex items-center w-full text-center justify-center font-medium flex-row gap-2  py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
-              rounded-lg transition-colors text-center"
-          >
-            New Chat
-            <PlusIcon className="w-5 h-5" />
-          </button>
+              onClick={onNewChat}
+              title="New Chat"
+              className="relative flex items-center w-full justify-center font-medium py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
+                rounded-lg transition-colors"
+            >
+              <div className="flex items-center gap-2">
+                <PlusIcon className="w-5 h-5" />
+                New Chat
+
+              </div>
+              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-[10px] font-medium sm:flex">
+                <span className="text-xs">⌘</span>K
+              </kbd>
+            </button>
         </div>
 
         {/* Chat List */}
@@ -137,7 +144,9 @@ export default function ChatList({
             ))}
           </ul>
         </div>
+        <Suspense fallback={<LoadingDots/>}>
         <LittleFounder/>
+        </Suspense>
       </div>
     </>
   );
