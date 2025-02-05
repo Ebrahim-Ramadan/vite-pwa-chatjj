@@ -141,7 +141,7 @@ function MessageList({ messages }: MessageListProps) {
               {code.trim()}
             </SyntaxHighlighter>
             <button
-              className="absolute top-1 right-1 bg-neutral-800 p-1 rounded opacity-70
+              className="absolute top-1 right-1 bg-neutral-800 p-2 rounded-lg opacity-70
                 hover:opacity-100"
               onClick={(e) => {
                 e.stopPropagation();

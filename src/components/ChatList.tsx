@@ -97,8 +97,8 @@ export default function ChatList({
                 New Chat
 
               </div>
-              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-[10px] font-medium sm:flex">
-                <span className="text-xs">⌘</span>K
+              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-xs font-medium sm:flex">
+                <span>⌘</span>K
               </kbd>
             </button>
         </div>
