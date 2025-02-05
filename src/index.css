@@ -19,6 +19,11 @@ button, a {
   cursor: pointer;
 }
 
+select.PickAModel {
+  min-block-size: 1.5lh;
+  field-sizing: content;
+}
+
 :root {
   scroll-padding: 0;
 }
