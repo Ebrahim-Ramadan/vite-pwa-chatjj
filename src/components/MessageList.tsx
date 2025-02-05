@@ -2,7 +2,6 @@
 import React, {
   lazy,
   Suspense,
-  useEffect,
   useRef,
   useState,
 } from "react";
@@ -11,7 +10,7 @@ import type { Message } from "../types";
 import SyntaxHighlighter from "react-syntax-highlighter";
 // @ts-ignore
 import { atomOneDark } from "react-syntax-highlighter/dist/esm/styles/hljs";
-import { ArrowDown, Copy } from "lucide-react";
+import {  Copy } from "lucide-react";
 import { copyToClipboard } from "../lib/utils";
 import { toast } from "sonner";
 
@@ -24,6 +23,7 @@ interface MessageListProps {
 function MessageList({ messages }: MessageListProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const latestRef = useRef<HTMLButtonElement>(null);
+  // @ts-ignore
   const [showScrollButton, setShowScrollButton] = useState(false);
 
   // useEffect(() => {
@@ -63,7 +63,7 @@ function MessageList({ messages }: MessageListProps) {
   //     latestRef.current?.scrollIntoView({ behavior: "smooth" });
   //   }
   // }, [messages]);
-
+// @ts-ignore
   const scrollToLatest = () => {
     latestRef.current?.scrollIntoView({ behavior: "smooth" });
   };
