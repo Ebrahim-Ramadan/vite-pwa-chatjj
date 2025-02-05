@@ -90,14 +90,11 @@ export default function ChatList({
               onClick={onNewChat}
               title="New Chat"
               className="relative flex items-center w-full justify-center font-medium py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
-                rounded-lg transition-colors"
+                rounded-lg transition-colors gap-1"
             >
-              <div className="flex items-center gap-2">
-                <PlusIcon className="w-5 h-5" />
+          <PlusIcon className="w-5 h-5" />
                 New Chat
-
-              </div>
-              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-xs font-medium sm:flex">
+              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-xs font-medium sm:flex mt-1">
                 <span>⌘</span>K
               </kbd>
             </button>
@@ -133,9 +130,9 @@ export default function ChatList({
                     e.stopPropagation();
                     onDeleteChat(chat);
                   }}
-                  className="hover:bg-neutral-800 rounded-lg p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-100 
+                  className="hover:bg-neutral-800 rounded-lg p-2 absolute right-2 top-1/2 transform -translate-y-1/2 duration-200 
                     opacity-0 group-hover:opacity-100 group-hover:scale-110 transition-opacity
-                    text-red-500"
+                    "
                   title="Delete chat"
                 >
                   <X className="w-4 h-4" />

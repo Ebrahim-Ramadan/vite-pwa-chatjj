@@ -57,7 +57,7 @@ export default function MessageInput({ onSendMessage, isDisabled }: MessageInput
           <button
             type="submit"
             disabled={isDisabled || !input.trim()}
-            className="p-2 disabled:text-neutral-400 disabled:cursor-not-allowed"
+            className="p-2 disabled:text-neutral-400 text-neutral-100 transition-colors duration-200 disabled:cursor-not-allowed"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
