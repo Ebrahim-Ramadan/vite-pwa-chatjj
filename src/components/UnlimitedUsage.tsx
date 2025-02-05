@@ -34,11 +34,11 @@ export default function UnlimitedMessages() {
           </div>
 
           <div className="flex gap-2 text-xs">
-            <div className="flex items-center gap-1 text-neutral-400">
+            <div className="flex items-center gap-1 text-neutral-400 flex-col md:flex-row">
               <CloudIcon className="w-3 h-3" />
               <span>No Cloud Required</span>
             </div>
-            <div className="flex items-center gap-1 text-neutral-400">
+            <div className="flex items-center gap-1 text-neutral-400 flex-col md:flex-row">
               <LockIcon className="w-3 h-3" />
               <span>100% Private</span>
             </div>
