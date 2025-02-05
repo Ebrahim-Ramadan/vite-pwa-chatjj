@@ -3,6 +3,7 @@ import type { Chat } from "../types";
 import { Link } from "react-router-dom";
 import { PlusIcon, X } from "lucide-react";
 import { ZapIcon } from "./UnlimitedUsage";
+import LittleFounder from './ui/MyCard';
 
 interface ChatListProps {
   chats: Chat[];
@@ -136,6 +137,7 @@ export default function ChatList({
             ))}
           </ul>
         </div>
+        <LittleFounder/>
       </div>
     </>
   );
