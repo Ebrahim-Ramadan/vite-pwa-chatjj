@@ -37,7 +37,7 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
     setMessages(loadedMessages)
   }
 
-  async function handleSendMessage(content: string) {
+  async function handleSendMessage(content: string, selectedModel:string) {
     if (isStreaming) return
 
     setError("")
@@ -68,7 +68,7 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
         setMessages((prev) => [...prev, aiMessage])
         setIsStreaming(false)
 
-        const finalContent = await streamChat(content, (chunk) => {
+        const finalContent = await streamChat(content, selectedModel, (chunk) => {
           setMessages((prev) =>
             prev.map((msg) => (msg.id === aiMessage.id ? { ...msg, content: msg.content + chunk } : msg))
           )
