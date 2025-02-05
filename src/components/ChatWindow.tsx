@@ -81,8 +81,8 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
         // Check if the chat has a name before generating a new one
         if (activeChat.title === "New Chat") {
           const newNameGenerated = await generateChatName({ chat: content });
-          updateChatNameProp(newNameGenerated);
-          await updateChatName(activeChat.id, newNameGenerated);
+          await updateChatName(activeChat.id, newNameGenerated.trim().length > 0 ? newNameGenerated : "New Chat");
+          updateChatNameProp(newNameGenerated.trim().length > 0 ? newNameGenerated : "New Chat");
         }
 
       } catch (error) {
