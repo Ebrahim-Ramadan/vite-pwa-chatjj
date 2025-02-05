@@ -53,7 +53,7 @@ export default function ChatList({
       {/* Mobile overlay */}
       {isSidebarOpen && (
         <div 
-          className="fixed inset-0 bg-[#000000e8] bg-opacity-50 z-40 lg:hidden"
+          className="fixed inset-0 bg-[#000000e8] bg-opacity-50 z-40 lg:hidden backdrop-blur-xs"
           onClick={onToggleSidebar}
         />
       )}
