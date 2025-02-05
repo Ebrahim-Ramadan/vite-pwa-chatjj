@@ -79,6 +79,7 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
         setMessages((prev) => prev.map((msg) => (msg.id === aiMessage.id ? updatedMessage : msg)))
 
         // Check if the chat has a name before generating a new one
+        
         if (activeChat.title === "New Chat") {
           const newNameGenerated = await generateChatName({ chat: content });
           await updateChatName(activeChat.id, newNameGenerated.trim().length > 0 ? newNameGenerated : "New Chat");
