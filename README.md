@@ -6,9 +6,9 @@ This guide explains how to install Ollama, download the supported model, and con
 
 - **Ollama**: Download and install from the
   [official website](https://ollama.ai/).
-- **Supported Model**: Currently, only the `deepseek r1:1.5` model is supported. Download it from
+- **Supported Model**: Currently, only the `deepseek r1` model is supported. Download it from
   [Ollama Deepseek r1:1.5](https://ollama.com/library/deepseek-r1:1.5b).  
-  *(Future versions like `7b`, `14b`, and stronger models including v2 and v3 will be added later.)*
+  *(the 1.5b is not so smart but surely fits your computer hardware no worries, future models like `r2`, `r3`, and stronger models including v2 and v3 will be added later.)*
 
 ## Setup Instructions
 
