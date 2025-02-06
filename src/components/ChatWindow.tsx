@@ -1,11 +1,12 @@
-import { useState, useEffect, useRef, useTransition } from "react"
+import { useState, useEffect, useRef, useTransition, lazy, Suspense } from "react"
 import type { Chat, Message } from "../types"
 import { getMessages, addMessage, updateMessage, updateChatName } from "../utils/db"
 import MessageList from "./MessageList"
 import MessageInput from "./MessageInput"
 import { generateChatName, streamChat } from "../utils/stream"
-import { FallBack } from "./ui/FallBack"
-
+import LoadingDots from "./ui/LoadingComponent"
+// import { FallBack } from "./ui/FallBack"
+const FallBack = lazy(() => import("./ui/FallBack"))
 interface ChatWindowProps {
   chat: Chat | null
   ensureActiveChat: () => Promise<Chat>
@@ -102,8 +103,12 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
   }
 
   return (
-    <div className="flex-1 flex flex-col max-w-3xl mx-auto">
-      {error && <FallBack message={error}/>}
+    <div className="flex-1 flex flex-col max-w-3xl mx-auto relative">
+      {error && 
+      <Suspense fallback={<div>Loading...</div>}>
+        <FallBack message={error}/>
+      </Suspense>
+      }
       <MessageList messages={messages} />
       <MessageInput 
         onSendMessage={handleSendMessage} 

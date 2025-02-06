@@ -17,7 +17,7 @@ export const streamChat = async (userPrompt: string, selectedModel:string = "1.5
     })
 
     if (!response.ok) {
-      throw new Error(`Failed to fetch: ${response.statusText}`)
+      throw new Error(`Model Not Available`)
     }
 
     const reader = response.body?.getReader()
