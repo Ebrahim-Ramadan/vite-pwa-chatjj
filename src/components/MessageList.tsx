@@ -17,10 +17,6 @@ interface MessageListProps {
   messages: Message[];
 }
 
-// Removes <think> blocks along with any surrounding whitespace so no orphaned <br>s remain.
-const removeThinkSections = (text: string) =>
-  text.replace(/\s*<think>[\s\S]*?<\/think>\s*/g, "");
-
 /**
  * Splits text by two or more newlines and wraps each paragraph in a <p> tag.
  */
@@ -67,20 +63,16 @@ function MessageList({ messages }: MessageListProps) {
 
   // Formats the message content for display.
   function formatMessage(content: string) {
-    // Remove <think> sections and extra whitespace/newlines.
-    const cleanedContent = removeThinkSections(content);
-
-    // Process code blocks separately.
     const finalParts: JSX.Element[] = [];
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
     let lastIndex = 0;
 
-    cleanedContent.replace(
+    content.replace(
       codeBlockRegex,
       (match, language, code, offset) => {
         // Add text preceding the block, rendering markdown.
         if (offset > lastIndex) {
-          const precedingText = cleanedContent.slice(lastIndex, offset);
+          const precedingText = content.slice(lastIndex, offset);
           finalParts.push(
             <span key={`text-${lastIndex}`}>
               {renderMarkdown(precedingText)}
@@ -135,20 +127,47 @@ function MessageList({ messages }: MessageListProps) {
       }
     );
 
-    // Render any remaining text after the last code block.
-    if (lastIndex < cleanedContent.length) {
-      finalParts.push(
-        <span key={`text-${lastIndex}`}>
-          {renderMarkdown(cleanedContent.slice(lastIndex))}
-        </span>
+    // Handle <think> sections and remaining text.
+    if (lastIndex < content.length) {
+      const remainingText = content.slice(lastIndex);
+      const thinkParts = remainingText.split(
+        /(<think>[\s\S]*?<\/think>)/g
       );
+
+      thinkParts.forEach((part, index) => {
+        if (part.startsWith("<think>") && part.endsWith("</think>")) {
+          // Replace <think> and </think> tags with "Thinking..." and "Done thinking"
+          const thinkContent = part.slice(7, -8); // Remove <think> and </think> tags
+          finalParts.push(
+            <span key={`thinking-${index}`} className="text-neutral-400">
+              Thoughts
+            </span>
+          );
+          finalParts.push(
+            <div
+              key={`think-${index}`}
+              className="bg-neutral-900 opacity-70 p-2 rounded-md mt-0 mb-2"
+            >
+              {renderMarkdown(thinkContent)}
+            </div>
+          );
+          finalParts.push(
+            <span key={`done-thinking-${index}`} className="text-neutral-400">
+              Done thinking
+            </span>
+          );
+        } else if (part.trim() !== "") {
+          // Render the rest of the text as markdown.
+          finalParts.push(
+            <span key={`text-${lastIndex + index}`}>
+              {renderMarkdown(part)}
+            </span>
+          );
+        }
+      });
     }
 
-    return (
-      <>
-        {finalParts.length > 0 ? finalParts : renderMarkdown(cleanedContent)}
-      </>
-    );
+    return <>{finalParts}</>;
   }
 
   return (
@@ -165,9 +184,9 @@ function MessageList({ messages }: MessageListProps) {
       )}
 
       {messages.map((message) => {
-        // Extract plain text for copy-to-clipboard, removing markdown and <think>
+        // Extract plain text for copy-to-clipboard, removing markdown but keeping <think>
         // sections.
-        const plainText = removeThinkSections(message.content)
+        const plainText = message.content
           .replace(/```(\w+)?\n([\s\S]*?)```/g, "$2")
           .replace(/\*\*([\s\S]*?)\*\*/g, "$1");
 
