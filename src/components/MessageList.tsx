@@ -140,7 +140,7 @@ function MessageList({ messages }: MessageListProps) {
           const thinkContent = part.slice(7, -8); // Remove <think> and </think> tags
           finalParts.push(
             <span key={`thinking-${index}`} className="text-neutral-400">
-              Thoughts
+              Thought for seconds
             </span>
           );
           finalParts.push(
@@ -151,11 +151,11 @@ function MessageList({ messages }: MessageListProps) {
               {renderMarkdown(thinkContent)}
             </div>
           );
-          finalParts.push(
-            <span key={`done-thinking-${index}`} className="text-neutral-400">
-              Done thinking
-            </span>
-          );
+          // finalParts.push(
+          //   <span key={`done-thinking-${index}`} className="text-neutral-400">
+          //     Done thinking
+          //   </span>
+          // );
         } else if (part.trim() !== "") {
           // Render the rest of the text as markdown.
           finalParts.push(
