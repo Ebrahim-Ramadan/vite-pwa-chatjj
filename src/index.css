@@ -43,3 +43,12 @@ span >*.renderedMDAssistant{
   height: 0;
   border-radius: 0;
 }
+
+.group-heading {
+  font-weight: bold;
+  color: #ff9900; /* Change to your desired color */
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  border-bottom: 1px solid #333; /* Optional: Add a bottom border */
+  padding-bottom: 4px;
+}
