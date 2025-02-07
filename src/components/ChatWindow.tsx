@@ -4,8 +4,7 @@ import { getMessages, addMessage, updateMessage, updateChatName } from "../utils
 import MessageList from "./MessageList"
 import MessageInput from "./MessageInput"
 import { generateChatName, streamChat } from "../utils/stream"
-import LoadingDots from "./ui/LoadingComponent"
-// import { FallBack } from "./ui/FallBack"
+
 const FallBack = lazy(() => import("./ui/FallBack"))
 interface ChatWindowProps {
   chat: Chat | null
