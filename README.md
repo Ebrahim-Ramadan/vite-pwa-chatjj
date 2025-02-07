@@ -1,6 +1,6 @@
 # How To Use chatjj
 
-chatjj is available as a stand-alone web application at [chat-jj.vercel.app](https://chat-jj.vercel.app), It allows to talk to your installed model already on your machine, offline and fast. You don't need to clone any repo - simply visit the website to start using the application. This guide explains how to set up properly.
+chatjj is available as a stand-alone web application at [chat-jj.vercel.app](https://chat-jj.vercel.app), It allows to talk to your already installed model on your machine, offline and fast. You don't need to clone any repo - simply visit the website to start using the application. This guide explains how to set up properly.
 
 ## Prerequisites
 
