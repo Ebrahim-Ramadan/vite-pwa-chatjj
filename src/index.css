@@ -19,9 +19,8 @@ button, a {
   cursor: pointer;
 }
 
-select.PickAModel {
-  min-block-size: 1.5lh;
-  field-sizing: content;
+span >*.renderedMDAssistant{
+  padding-top: 4px;
 }
 
 :root {

@@ -20,11 +20,11 @@ interface MessageListProps {
 /**
  * Splits text by two or more newlines and wraps each paragraph in a <p> tag.
  */
-const renderMarkdown = (text: string) => {
+const renderMarkdown = (text: string, role: string) => {
   // Split by two or more newlines
   const paragraphs = text.split(/\n{2,}/g);
   return paragraphs.map((para, index) => (
-    <p key={index}>
+    <p key={index} className={`${role == "assistant" && "renderedMDAssistant"}`}>
       {renderBold(para)}
     </p>
   ));
@@ -62,7 +62,7 @@ function MessageList({ messages }: MessageListProps) {
   };
 
   // Formats the message content for display.
-  function formatMessage(content: string) {
+  function formatMessage(content: string, role: string) {
     const finalParts: JSX.Element[] = [];
     const codeBlockRegex = /```(\w+)?\n([\s\S]*?)```/g;
     let lastIndex = 0;
@@ -75,7 +75,7 @@ function MessageList({ messages }: MessageListProps) {
           const precedingText = content.slice(lastIndex, offset);
           finalParts.push(
             <span key={`text-${lastIndex}`}>
-              {renderMarkdown(precedingText)}
+              {renderMarkdown(precedingText, role)}
             </span>
           );
         }
@@ -148,7 +148,7 @@ function MessageList({ messages }: MessageListProps) {
               key={`think-${index}`}
               className="bg-neutral-900 opacity-70 p-2 rounded-md mt-0 mb-2"
             >
-              {renderMarkdown(thinkContent)}
+              {renderMarkdown(thinkContent, role)}
             </div>
           );
           // finalParts.push(
@@ -160,7 +160,7 @@ function MessageList({ messages }: MessageListProps) {
           // Render the rest of the text as markdown.
           finalParts.push(
             <span key={`text-${lastIndex + index}`}>
-              {renderMarkdown(part)}
+              {renderMarkdown(part, role)}
             </span>
           );
         }
@@ -200,11 +200,11 @@ function MessageList({ messages }: MessageListProps) {
             }`}
           >
             <div
-              className={`p-2 rounded-lg max-w-[80%] ${
-                message.role === "user" ? "bg-neutral-900" : ""
+              className={` rounded-lg max-w-[80%] ${
+                message.role === "user" ? "bg-neutral-900 p-2" : ""
               }`}
             >
-              {formatMessage(message.content)}
+              {formatMessage(message.content, message.role)}
             </div>
 
             {/* Copy whole response button */}
