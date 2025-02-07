@@ -110,7 +110,7 @@ function MessageList({ messages }: MessageListProps) {
               {code.trim()}
             </SyntaxHighlighter>
             <button
-              className="absolute top-1 right-1 bg-neutral-800 p-2 rounded-lg opacity-70 hover:opacity-100"
+              className="absolute top-1 right-1 bg-neutral-800 p-2 rounded-full opacity-80 hover:opacity-100"
               onClick={(e) => {
                 e.stopPropagation();
                 copyToClipboard(code.trim());
@@ -138,7 +138,8 @@ function MessageList({ messages }: MessageListProps) {
         if (part.startsWith("<think>") && part.endsWith("</think>")) {
           // Replace <think> and </think> tags with "Thinking..." and "Done thinking"
           const thinkContent = part.slice(7, -8); // Remove <think> and </think> tags
-          console.log('thinkContent', thinkContent);
+          console.log('thinkContent', thinkContent.trim().length);
+          if (thinkContent.trim().length == 0) return;
           finalParts.push(
             <span key={`thinking-${index}`} className="text-neutral-400">
               Thought for seconds
@@ -173,7 +174,7 @@ function MessageList({ messages }: MessageListProps) {
 
   return (
     <div
-      className="relative flex-1 overflow-y-auto p-4 pb-20 pt-8 space-y-4"
+      className="flex-1 overflow-y-auto p-4 pb-20 pt-8 space-y-4"
       ref={containerRef}
     >
       {messages.length === 0 && (
@@ -200,6 +201,9 @@ function MessageList({ messages }: MessageListProps) {
                 : "relative mb-12 justify-start"
             }`}
           >
+            {message.role === "assistant" && <div className="absolute -bottom-6 right-2 text-neutral-400 text-[10px]">
+              {message.timestamp.toLocaleTimeString(undefined, { hour: 'numeric', minute: 'numeric', hour12: true })}
+            </div>}
             <div
               className={` rounded-lg max-w-[80%] ${
                 message.role === "user" ? "bg-neutral-900 p-2" : ""
@@ -212,7 +216,7 @@ function MessageList({ messages }: MessageListProps) {
             <button
               className={`${
                 message.role !== "user"
-                  ? "ml-4 flex flex-row items-center gap-2 absolute -bottom-8 left-1 bg-neutral-800 p-2 rounded-lg opacity-90 hover:opacity-100"
+                  ? "ml-4 flex flex-row items-center gap-2 absolute -bottom-8 left-1 bg-neutral-800 p-2 rounded-full opacity-90 hover:opacity-100"
                   : "invisible"
               }`}
               onClick={(e) => {
