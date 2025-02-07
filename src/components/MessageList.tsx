@@ -138,6 +138,7 @@ function MessageList({ messages }: MessageListProps) {
         if (part.startsWith("<think>") && part.endsWith("</think>")) {
           // Replace <think> and </think> tags with "Thinking..." and "Done thinking"
           const thinkContent = part.slice(7, -8); // Remove <think> and </think> tags
+          console.log('thinkContent', thinkContent);
           finalParts.push(
             <span key={`thinking-${index}`} className="text-neutral-400">
               Thought for seconds
