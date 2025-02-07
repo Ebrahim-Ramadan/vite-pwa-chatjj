@@ -89,12 +89,12 @@ export default function ChatList({
           <button
               onClick={onNewChat}
               title="New Chat"
-              className="relative flex items-center w-full justify-center font-medium py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
+              className=" flex items-center w-full justify-between font-medium py-2 px-4 bg-neutral-800 hover:bg-neutral-700 
                 rounded-lg transition-colors gap-1"
             >
           <PlusIcon className="w-5 h-5" />
                 New Chat
-              <kbd className="pointer-events-none absolute right-2 hidden h-5 select-none items-center gap-1 px-1.5 font-mono text-xs font-medium sm:flex mt-1">
+              <kbd className="text-sm text-neutral-300">
                 <span>⌘</span>K
               </kbd>
             </button>
