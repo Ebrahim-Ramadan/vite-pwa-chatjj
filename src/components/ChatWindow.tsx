@@ -4,6 +4,7 @@ import { getMessages, addMessage, updateMessage, updateChatName } from "../utils
 import MessageList from "./MessageList"
 import MessageInput from "./MessageInput"
 import { generateChatName, streamChat } from "../utils/stream"
+import LoadingDots from "./ui/LoadingComponent"
 
 const FallBack = lazy(() => import("./ui/FallBack"))
 interface ChatWindowProps {
@@ -104,11 +105,14 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
   return (
     <div className="flex-1 flex flex-col max-w-3xl mx-auto relative">
       {error && 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingDots/>}>
         <FallBack message={error}/>
       </Suspense>
       }
-      <MessageList messages={messages} />
+          <Suspense fallback={<LoadingDots/>}>
+          <MessageList messages={messages} />
+
+      </Suspense>
       <MessageInput 
         onSendMessage={handleSendMessage} 
         isDisabled={isStreaming} 
