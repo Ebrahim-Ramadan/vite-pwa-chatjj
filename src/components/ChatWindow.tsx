@@ -68,7 +68,7 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
         await addMessage(aiMessage)
         setMessages((prev) => [...prev, aiMessage])
         setIsStreaming(false)
-
+        
         const finalContent = await streamChat(content, selectedModel, (chunk) => {
           setMessages((prev) =>
             prev.map((msg) => (msg.id === aiMessage.id ? { ...msg, content: msg.content + chunk } : msg))

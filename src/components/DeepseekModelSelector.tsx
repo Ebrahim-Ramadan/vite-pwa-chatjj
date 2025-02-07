@@ -9,22 +9,38 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
 
 const models = [
-  { value: "1.5", label: "Deepseek-r1:1.5b" },
-  { value: "7", label: "Deepseek-r1:7b" },
-  { value: "8", label: "Deepseek-r1:8b" },
-  { value: "14", label: "Deepseek-r1:14b" },
-  { value: "32", label: "Deepseek-r1:32b" },
-  { value: "70", label: "Deepseek-r1:70b" },
+  { label: "Deepseek-r1:1.5b" },
+  { label: "Deepseek-r1:7b" },
+  { label: "Deepseek-r1:8b" },
+  { label: "Deepseek-r1:14b" },
+  { label: "Deepseek-r1:32b" },
+  { label: "Deepseek-r1:70b" },
 ]
 
 interface DeepseekModelSelectorProps {
-  value: string
+  value: string | null
   onChange: (value: string) => void
   disabled?: boolean
 }
 
 export function DeepseekModelSelector({ value, onChange, disabled }: DeepseekModelSelectorProps) {
   const [open, setOpen] = React.useState(false)
+
+  // Fetch the selected model from local storage when the component mounts
+  React.useEffect(() => {
+    const storedModel = localStorage.getItem("selectedDeepseekModel")
+    if (storedModel) {
+      onChange(storedModel) // Update the parent state if a model is stored
+    } else {
+      onChange("Deepseek-r1:1.5b") // Set default if no model is stored
+    }
+  }, [onChange])
+
+  const handleModelChange = (value: string) => {
+    onChange(value)
+    localStorage.setItem("selectedDeepseekModel", value) // Store in local storage
+    setOpen(false)
+  }
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -36,7 +52,7 @@ export function DeepseekModelSelector({ value, onChange, disabled }: DeepseekMod
           className="w-[250px] justify-between bg-[#1a1a1a] text-white border-neutral-800 hover:bg-neutral-800 hover:text-white"
           disabled={disabled}
         >
-          {value ? models.find((model) => model.value === value)?.label : "Select Deepseek model..."}
+          {value ? models.find((model) => model.label === value)?.label : "Select Deepseek model..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -51,15 +67,12 @@ export function DeepseekModelSelector({ value, onChange, disabled }: DeepseekMod
             <CommandGroup>
               {models.map((model) => (
                 <CommandItem
-                  key={model.value}
-                  value={model.label} // Changed from model.value to model.label for filtering
-                  onSelect={() => {
-                    onChange(model.value) // Still pass the value to onChange
-                    setOpen(false)
-                  }}
+                  key={model.label}
+                  value={model.label}
+                  onSelect={() => handleModelChange(model.label)} // Use the new handler
                   className="text-white hover:bg-neutral-800"
                 >
-                  <Check className={cn("mr-2 h-4 w-4", value === model.value ? "opacity-100" : "opacity-0")} />
+                  <Check className={cn("mr-2 h-4 w-4", value === model.label ? "opacity-100" : "opacity-0")} />
                   {model.label}
                 </CommandItem>
               ))}
@@ -70,4 +83,3 @@ export function DeepseekModelSelector({ value, onChange, disabled }: DeepseekMod
     </Popover>
   )
 }
-

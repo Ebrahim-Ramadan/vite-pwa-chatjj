@@ -1,4 +1,4 @@
-export const streamChat = async (userPrompt: string, selectedModel:string = "1.5", onChunkReceived: (chunk: string) => void): Promise<string> => {
+export const streamChat = async (userPrompt: string, selectedModel:string = "Deepseek-r1:1.5b", onChunkReceived: (chunk: string) => void): Promise<string> => {
   if (!userPrompt) {
     throw new Error("No prompt provided")
   }
@@ -10,7 +10,7 @@ export const streamChat = async (userPrompt: string, selectedModel:string = "1.5
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: `deepseek-r1:${selectedModel}b`,
+        model: selectedModel,
         messages: [{ role: "user", content: userPrompt }],
         stream: true,
       }),
