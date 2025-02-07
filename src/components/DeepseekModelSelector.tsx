@@ -15,6 +15,50 @@ const models = [
   { label: "Deepseek-r1:14b" },
   { label: "Deepseek-r1:32b" },
   { label: "Deepseek-r1:70b" },
+
+  { label: "mistral:7b" },
+  { label: "phi4:14b" },
+
+  { label: "llama2:7b" },
+  { label: "llama2:13b" },
+  { label: "llama2:70b" },
+
+  { label: "llama3:8b" },
+  { label: "llama3:70b" },
+  { label: "llama3.1:8b" },
+  { label: "llama3.1:70b" },
+  { label: "llama3.1:405b" },
+  { label: "llama3.2:1b" },
+  { label: "llama3.2:3b" },
+  { label: "llama3.3:70b" },
+
+  { label: "qwen:0.5b" },
+  { label: "qwen:1.8b" },
+  { label: "qwen:4b" },
+  { label: "qwen:7b" },
+  { label: "qwen:14b" },
+  { label: "qwen:32b" },
+  { label: "qwen:72b" },
+  { label: "qwen:110b" },
+
+  { label: "qwen2:0.5b" },
+  { label: "qwen2:1.5b" },
+  { label: "qwen2:7b" },
+  { label: "qwen2:72b" },
+  { label: "qwen2.5:0.5b" },
+  { label: "qwen2.5:1.5b" },
+  { label: "qwen2.5:3b" },
+  { label: "qwen2.5:7b" },
+  { label: "qwen2.5:14b" },
+  { label: "qwen2.5:32b" },
+  { label: "qwen2.5:72b" },
+  
+  { label: "qwen2.5-coder:0.5b" },
+  { label: "qwen2.5-coder:1.5b" },
+  { label: "qwen2.5-coder:3b" },
+  { label: "qwen2.5-coder:7b" },
+  { label: "qwen2.5-coder:14b" },
+  { label: "qwen2.5-coder:32b" },
 ]
 
 interface DeepseekModelSelectorProps {
