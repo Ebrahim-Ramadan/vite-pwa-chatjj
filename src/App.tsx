@@ -102,7 +102,7 @@ export default function App() {
     }
   }
   return (
-    <div className="flex h-screen bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-neutral-100 w-full">
+    <div className="flex h-[100dvh] bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-neutral-100 w-full">
        {/* Mobile menu button */}
        <button
         onClick={() => setIsSidebarOpen(true)}
