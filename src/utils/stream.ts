@@ -17,7 +17,7 @@ export const streamChat = async (userPrompt: string, selectedModel:string = "Dee
     })
 
     if (!response.ok) {
-      throw new Error(`Model Not Available`)
+      throw new Error(`Model Not Installed`)
     }
 
     const reader = response.body?.getReader()
