@@ -107,11 +107,11 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
   return (
     <div className="flex-1 flex flex-col max-w-3xl mx-auto relative">
       {error && 
-      <Suspense fallback={<LoadingDots/>}>
+      <Suspense fallback={<div className="flex w-full justify-center items-center"><LoadingDots/></div>}>
         <FallBack message={error}/>
       </Suspense>
       }
-          <Suspense fallback={<LoadingDots/>}>
+          <Suspense fallback={<div className="flex w-full justify-center items-center"><LoadingDots/></div>}>
           <MessageList messages={messages} />
 
       </Suspense>

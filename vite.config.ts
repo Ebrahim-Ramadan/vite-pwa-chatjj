@@ -56,6 +56,9 @@ export default defineConfig({
     //   exclude: ['**/*.ts', '**/*.tsx']
     // })
   ],
+  esbuild: {
+    drop: ['console', 'debugger'],
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
