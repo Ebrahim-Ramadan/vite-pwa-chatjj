@@ -1,7 +1,7 @@
 
 export default function UnlimitedMessages() {
   return (
-    <div className="max-w-md p-3 md:p-6 bg-gradient-to-br from-neutral-900 via-neutral-900 to-neutral-800 text-neutral-100 rounded-xl border border-neutral-800 shadow-xl hover:shadow-emerald-500/10 transition-shadow duration-500">
+    <div className="max-w-md p-3 md:p-6 bg-gradient-to-br from-neutral-900 via-neutral-900 to-neutral-800 text-neutral-100 rounded-xl border border-neutral-800 shadow-xl hover:shadow-emerald-950/10 transition-shadow duration-300">
       <div className="space-y-4">
         <div className="flex md:items-center md:justify-between space-y-2 flex-col md:flex-row w-full">
           <div className="flex items-center gap-3">

@@ -6,6 +6,7 @@ import { ConfirmDialog } from "./components/ConfirmDialog"
 import type { Chat } from "./types"
 import { getAllChats, createChat, getChatById, deleteChat, getMessages } from "./utils/db"
 import { Menu } from "lucide-react"
+import { toast } from "sonner"
 
 export default function App() {
   const [chats, setChats] = useState<Chat[]>([])
@@ -44,10 +45,7 @@ export default function App() {
 
   async function handleNewChat() {
     if (activeChat) {
-      console.log('activeChat', activeChat);
-      
       const numberofMessages = await getMessages(activeChat.id)
-      console.log("numberofMessages", numberofMessages);
       
       if (numberofMessages.length == 0) {
         navigate(`/chat/${activeChat.id}`)
@@ -71,6 +69,7 @@ export default function App() {
     if (chatToDelete) {
       await deleteChat(chatToDelete.id)
       setChats(chats.filter((chat) => chat.id !== chatToDelete.id))
+      toast.success("Chat deleted")
       if (activeChat && activeChat.id === chatToDelete.id) {
         setActiveChat(null)
         navigate("/")
