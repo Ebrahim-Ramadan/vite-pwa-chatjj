@@ -7,18 +7,22 @@ import type { Chat } from "./types"
 import { getAllChats, createChat, getChatById, deleteChat, getMessages } from "./utils/db"
 import { Menu } from "lucide-react"
 import { toast } from "sonner"
+import { QuickHintModal } from "./components/QuickHintModal"
 
 export default function App() {
   const [chats, setChats] = useState<Chat[]>([])
   const [activeChat, setActiveChat] = useState<Chat | null>(null)
   const [chatToDelete, setChatToDelete] = useState<Chat | null>(null)
   const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+  const [isQuickHintOpen, setIsQuickHintOpen] = useState(false)
+
   const navigate = useNavigate()
   const { chatId } = useParams<{ chatId: string }>()
   const location = useLocation()
 
   useEffect(() => {
     loadChats()
+    checkQuickHintStatus()
   }, [])
 
   useEffect(() => {
@@ -29,6 +33,14 @@ export default function App() {
     }
   }, [chatId, location.pathname])
 
+  function checkQuickHintStatus() {
+    const hasSeenQuickHint = localStorage.getItem('hasSeenQuickHint')
+    console.log('hasSeenQuickHint', typeof hasSeenQuickHint)
+    
+    if (!hasSeenQuickHint) {
+      setIsQuickHintOpen(true)
+    }
+  }
   async function loadChats() {
     const loadedChats = await getAllChats()
     setChats(loadedChats)
@@ -102,6 +114,12 @@ export default function App() {
   }
   return (
     <div className="flex h-[100dvh] bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-neutral-100 w-full">
+      <QuickHintModal
+        isOpen={isQuickHintOpen}
+        onOpenChange={setIsQuickHintOpen}
+      />
+
+
        {/* Mobile menu button */}
        <button
         onClick={() => setIsSidebarOpen(true)}
