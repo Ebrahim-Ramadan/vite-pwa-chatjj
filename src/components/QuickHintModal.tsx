@@ -40,3 +40,4 @@ export function QuickHintModal({ isOpen, onOpenChange }: QuickHintModalProps) {
     </Dialog>
   )
 }
+export default QuickHintModal

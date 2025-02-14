@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, Suspense, lazy } from "react"
 import { useNavigate, useParams, useLocation } from "react-router-dom"
 import ChatList from "./components/ChatList"
 import ChatWindow from "./components/ChatWindow"
@@ -7,7 +7,9 @@ import type { Chat } from "./types"
 import { getAllChats, createChat, getChatById, deleteChat, getMessages } from "./utils/db"
 import { Menu } from "lucide-react"
 import { toast } from "sonner"
-import { QuickHintModal } from "./components/QuickHintModal"
+// Lazy load QuickHintModal
+const QuickHintModal = lazy(() => import("./components/QuickHintModal"));
+
 
 export default function App() {
   const [chats, setChats] = useState<Chat[]>([])
@@ -114,10 +116,14 @@ export default function App() {
   }
   return (
     <div className="flex h-[100dvh] bg-gradient-to-br from-zinc-950 via-zinc-900 to-zinc-800 text-neutral-100 w-full">
-      <QuickHintModal
-        isOpen={isQuickHintOpen}
-        onOpenChange={setIsQuickHintOpen}
-      />
+      {isQuickHintOpen && (
+        <Suspense fallback={<div>Loading...</div>}>
+          <QuickHintModal
+            isOpen={isQuickHintOpen}
+            onOpenChange={setIsQuickHintOpen}
+          />
+        </Suspense>
+      )}
 
 
        {/* Mobile menu button */}
