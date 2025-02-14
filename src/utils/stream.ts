@@ -49,7 +49,7 @@ export const streamChat = async (userPrompt: string, selectedModel:string = "Dee
 
     return accumulatedResponse
   } catch (error) {
-    console.error("Error streaming chat:", error)
+    console.error("Error streaming chat:", error, "visit here: https://github.com/Ebrahim-Ramadan/vite-pwa-chatjj?tab=readme-ov-file#how-to-use-chatjj")
     throw error
   }
 }

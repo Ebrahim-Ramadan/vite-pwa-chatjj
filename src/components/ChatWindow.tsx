@@ -35,8 +35,6 @@ export default function ChatWindow({ chat, ensureActiveChat, updateChatNameProp 
 
   async function loadMessages(chatId: string) {
     const loadedMessages = await getMessages(chatId)
-    console.log('loadedMessages', loadedMessages)
-    
     setMessages(loadedMessages)
   }
 
